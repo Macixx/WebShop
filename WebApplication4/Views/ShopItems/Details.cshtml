@@ -1,0 +1,101 @@
+﻿@model WebApplication4.Areas.Identity.Data.ShopItem
+
+@{
+    ViewData["Title"] = "Produkt";
+}
+
+<main class="mt-5 pt-4">
+    <div class="container mt-5">
+
+        <div class="row">
+
+
+
+
+
+
+
+
+
+            <div class="col-md-6 mb-4" style="width:40%;">
+                <img src="@Model.ItemImage" class="img-fluid " alt="" style="height: 100%; width:100%; object-fit:contain;" />
+            </div>
+
+            <div class="col-md-6 mb-4 ">
+                <h3 class="">@Model.ItemName</h3>
+
+                <p class="text-opacity-50">Producent: @Model.Producer | kod: @Model.ID</p>
+                <div class="container mt-1">
+                    <div class="row">
+
+
+                        <div class="col" style="width:40%;">
+                            <hr class="hr" />
+                            <p class="fw-bold">Producent: @Model.Producer </p>
+                            <p class="fw-bold">Kategoria: @Model.Category </p>
+                            <p class="fw-bold">Liczba sprzedaży: @Model.Sales </p>
+
+
+
+
+                        </div>
+
+                        <div class="col-7">
+                            <div class="card border border-light h-100 rounded-6 float-end" style="">
+
+                                <div class="card-body pe-1">
+                                    <div class="">
+
+                                        
+
+                                        <div class="card-header text-end pe-3">
+                                            <h3 class=" ">@Model.ItemPrice zł</h3>
+                                            <form class="d-flex justify-content-left">
+
+                                                <div class="me-1" style="width: 3rem;">
+                                                    <input type="number" value="1" class="form-control rounded-9" min="1" max="@Model.Count" />
+                                                </div>
+                                                <button class="btn btn-success ms-1 rounded-8" style="font-size:x-small;" type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 1 16 16">
+                                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                                    </svg>
+                                                    Dodaj do koszyka
+
+                                                </button>
+                                            </form>
+                                        </div>
+                                        
+                                        <p class="fw-bold mt-3">Dostępność: @Model.Sales Sztuk</p>
+                                        
+
+
+
+                                        
+
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <hr />
+
+
+        
+
+
+    </div>
+</main>

@@ -1,0 +1,414 @@
+﻿@model PaginatedList<WebApplication4.Areas.Identity.Data.ShopItem>
+
+@using WebApplication4.Controllers;
+@using System.Web;
+
+@{
+
+    ViewData["Title"] = "Szukaj";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var searchString = ViewData["searchString"];
+    var query = ViewData["Query"].ToString();
+    var sortOrder = ViewData["SortOrder"];
+    string sortOrderStr = "";
+    switch (sortOrder)
+    {
+        case "price_desc":
+            sortOrderStr = "Cena: Od najwyższej";
+            break;
+        case "price":
+            sortOrderStr = "Cena: Od najniższej";
+            break;
+        case "name_desc":
+            sortOrderStr = "Nazwa: Od z do a";
+            break;
+        case "name":
+            sortOrderStr = "Nazwa: Od a do z";
+            break;
+        default:
+            sortOrderStr = "Popularność: Od najwyższej";
+            break;
+    }
+
+
+
+    string szukaj = "/szukaj" + query;
+    while (szukaj.Contains("sortOrder"))
+    {
+        if (szukaj.Contains("sortOrder"))
+        {
+            szukaj = szukaj.Remove(szukaj.LastIndexOf("&sortOrder"));
+
+        }
+
+
+    }
+
+    while (szukaj.Contains("pageNumber"))
+    {
+        if (szukaj.Contains("pageNumber"))
+        {
+            szukaj = szukaj.Remove(szukaj.LastIndexOf("&"));
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+}
+
+<style>
+
+
+    .card {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .footer-cta {
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    }
+
+    .price {
+        color: #263238;
+        font-size: 24px;
+    }
+
+    .card-title {
+        color: #263238
+    }
+
+    .sale {
+        color: #E53935
+    }
+
+    .sale-badge {
+        background-color: #E53935
+    }
+
+</style>
+<section class="py-5">
+    @{
+        if (Model.Any() == true)
+        {
+            <div class="container px-4 px-lg-5 mt-5">
+                <h3 class="fw-bolder">
+                    Wyniki wyszukiwania dla:
+                    „@searchString”
+
+                </h3>
+
+                <div class="row h-100 mt-4">
+
+                    <div class="col-3">
+                        <div class="col mb-5">
+                            <div class="card h-100">
+
+                                <div class="card-body p-4">
+                                    <div class="">
+
+                                        <h5 class="fw-bolder">Filtry</h5>
+                                        <h6>Producent:</h6>
+                                        @{
+                                            foreach (var producer in Model.DistinctBy(producer => producer.Producer))
+                                            {
+                                                if (szukaj.Contains($"producerFilter={producer.Producer}"))
+                                                {
+                                                    szukaj = szukaj.Remove(szukaj.LastIndexOf("&producerFilter"));
+
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" onchange="window.location.href='@szukaj'" id="flexCheckChecked" checked>
+                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                            @producer.Producer
+                                                        </label>
+                                                    </div>
+
+
+
+                                                }
+
+                                                else
+                                                {
+
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input" type="checkbox" value="" onchange="window.location.href='@szukaj&producerFilter=@producer.Producer'" id="flexCheckDefault$@producer.Producer">
+                                                        <label class="form-check-label" for="flexCheckDefault$@producer.Producer">
+                                                            @producer.Producer
+                                                        </label>
+                                                    </div>
+
+
+                                                }
+
+
+
+                                            }
+
+
+                                        }
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col ms-3">
+                        <div class="row justify-content-end">
+                            <hr class="hr" />
+                            <div class="dropdown ">
+
+                                <button class="btn btn-outline-dark text-black dropdown-toggle rounded-9" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sortowanie: @sortOrderStr
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="@szukaj">Popularność: Od najwyższej</a></li>
+                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=price_desc">Cena: Od najwyższej</a></li>
+                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=price">Cena: Od najniższej</a></li>
+                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=name">Nazwa: Od a do z</a></li>
+                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=name_desc">Nazwa: Od z do a</a></li>
+
+
+                                </ul>
+
+
+                            </div>
+
+                        </div>
+                        <hr class="hr" />
+
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
+
+                            @{
+
+                                foreach (var item in Model)
+                                {
+                                    
+                                        string? itemName = item.ItemName;
+                                        if (item.ItemName.Length > 44)
+                                        {
+
+                                            itemName = item.ItemName.Remove(44);
+
+
+                                            itemName = itemName + "...";
+
+
+                                        }
+                                        <div class="col mb-4 p-3" style="width: 230px;">
+                                            <a href="/produkt?id=@item.ID" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                                <div class="hover-overlay h-100">
+                                                    <div class="card h-100 text-start">
+                                                        <div class="bg-image ">
+                                                            <img src="@item.ItemImage"
+                                                     class="w-100" style="height: 200px;" />
+
+
+
+                                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+
+
+                                                        </div>
+
+
+                                                        <h6 class="text-black mb-2 fw-bold">@itemName</h6>
+                                                        <div class="card-body p-0">
+                                                            <p class="text-black">Producent: @item.Producer</p>
+                                                        </div>
+
+
+
+
+
+
+                                                        <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
+
+
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </a>
+                                        </div>
+
+
+                                    
+                                    
+
+
+
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+
+
+                        </div>
+
+                    </div>
+
+                    <nav class="my-4" aria-label="...">
+                        <ul class="pagination pagination-circle justify-content-center">
+                            @{
+                                if (Model.HasPreviousPage)
+                                {
+                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex - 1)">Poprzednia</a></li>
+
+
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link @prevDisabled">Poprzednia</a></li>
+
+
+                                }
+
+                            }
+
+                            @{
+                                if (Model.PageIndex > 2)
+                                {
+                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=1">1</a></li>
+                                }
+                            }
+                            @{
+                                if (Model.PageIndex > 1)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex - 1)">
+                                            @(
+                                        Model.PageIndex - 1
+                                                )
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+
+
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">@Model.PageIndex<span class="sr-only"></span></a>
+                            </li>
+
+
+                            @{
+                                if (Model.PageIndex < Model.TotalPages)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex + 1)">
+                                            @(
+                                        Model.PageIndex + 1
+                                                )
+                                        </a>
+                                    </li>
+
+                                }
+
+                            }
+                            @{
+                                if ((Model.PageIndex + 1) != Model.TotalPages && Model.PageIndex != Model.TotalPages && Model.TotalPages != 0)
+                                {
+                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.TotalPages)">@Model.TotalPages</a></li>
+
+                                }
+
+                            }
+
+
+
+
+                            @{
+                                if (Model.HasNextPage)
+                                {
+                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex + 1)">Następna</a></li>
+
+
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link @nextDisabled">Następna</a></li>
+
+
+                                }
+
+                            }
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="justify-content-center align-self-center " style="margin-left: 8rem;">
+                <h3 class="fw-bolder">
+                    Nie znaleziono wyników dla wyszukiwania:
+                    „@searchString”
+                </h3>
+
+                <div class="fw-bold">
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                        </svg>Sprawdź, czy wszystkie słowa zostały poprawnie napisane.
+                    </p>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                        </svg>Spróbuj użyć innych lub bardziej ogólnych słów.
+                    </p>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                        </svg>Spróbuj użyć mniejszej liczby słów.
+                    </p>
+
+
+                </div>
+            </div>
+        }
+    }
+</section>
+
+
+
+

@@ -1,0 +1,59 @@
+﻿:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #f1f2f6;
+}
+
+/* kolor tła strony */
+body {
+    background-color: var(--secondary-color);
+}
+
+/* kolor tekstu */
+body, h1, h2, h3, h4, h5, h6, p, a {
+    color: #333;
+}
+
+/* kolor nagłówków */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+}
+
+/* kolor linków */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* kolor przycisków */
+.btn {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+    /* kolor hovera dla przycisków */
+    .btn:hover {
+        background-color: #4834d4;
+    }
+
+/* kolor ramki dla przycisków */
+.btn-outline {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+    /* kolor hovera dla przycisków z ramką */
+    .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+/* kolor formularzy */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+}
+
+/* kolor hovera dla tabeli */
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}

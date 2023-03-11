@@ -1,0 +1,230 @@
+﻿@model IEnumerable<WebApplication4.Areas.Identity.Data.ShopItem>
+@using System.Linq;
+@using System.Data;
+@using Microsoft.EntityFrameworkCore;
+@using WebApplication4.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Produkty";
+}
+<style>
+
+
+    .card {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .footer-cta {
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    }
+
+    .price {
+        color: #263238;
+        font-size: 24px;
+    }
+
+    .card-title {
+        color: #263238
+    }
+
+    .sale {
+        color: #E53935
+    }
+
+    .sale-badge {
+        background-color: #E53935
+    }
+
+</style>
+
+
+
+<hr class="hr" />
+<h2>Bestsellery</h2>
+<main class="d-flex  mt-5">
+
+    <div class="container d-flex ">
+
+        <div class="row align-items-start">
+
+
+
+
+
+
+            <section class="col">
+                <div class="text-center">
+                    <div class="row h-100 ">
+
+
+                        @{
+
+
+                            foreach (var item in Model.Take(5).OrderByDescending(item => item.Sales))
+                            {
+                                string? itemName = item.ItemName;
+                                if (item.ItemName.Length > 44)
+                                {
+
+                                    itemName = item.ItemName.Remove(44);
+
+                                    //itemName.Insert(25, "...");
+                                    itemName = itemName + "...";
+
+
+                                }
+                                <div class="col mb-4 p-3" style="width: 230px;">
+                                    <a href="/produkt?id=@item.ID#" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                        <div class="hover-overlay h-100">
+                                            <div class="card h-100 text-start">
+                                                <div class="bg-image ">
+                                                    <img src="@item.ItemImage"
+                                                     class="w-100" style="height: 200px;" />
+
+
+
+                                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+
+
+                                                </div>
+
+
+                                                <h6 class="text-black mb-2 fw-bold">@itemName</h6>
+                                                <div class="card-body p-0">
+                                                    <p class="text-black">Producent: @item.Producer</p>
+                                                </div>
+                                                
+
+
+
+
+
+                                                <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
+
+
+                                                
+                                            </div>
+
+                                        </div>
+
+
+                                    </a>
+                                </div>
+
+
+
+
+
+
+
+                            }
+
+
+
+
+
+
+
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+
+            </section>
+            <hr class="hr" />
+            <h2>Nowości</h2>
+            <section class="col">
+                <div class="text-center">
+                    <div class="row">
+
+
+                        @{
+
+
+                            foreach (var item in Model.Take(5).OrderByDescending(item => item.whenAdded))
+                            {
+
+                                string? itemName = item.ItemName;
+                                if (item.ItemName.Length > 44)
+                                {
+
+                                    itemName = item.ItemName.Remove(44);
+
+                                    //itemName.Insert(25, "...");
+                                    itemName = itemName + "...";
+
+
+                                }
+                                <div class="col mb-4 p-3" style="width: 230px;">
+                                    <a href="/produkt?id=@item.ID" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                        <div class="hover-overlay h-100">
+                                            <div class="card h-100 text-start">
+                                                <div class="bg-image ">
+                                                    <img src="@item.ItemImage"
+                                                     class="w-100" style="height: 200px;" />
+
+
+
+                                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+
+
+                                                </div>
+
+
+                                                <h6 class="text-black mb-2 fw-bold">@itemName</h6>
+                                                <div class="card-body p-0">
+                                                    <p class="text-black">Producent: @item.Producer</p>
+                                                </div>
+
+
+
+
+
+
+                                                <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
+
+
+                                                
+                                            </div>
+
+                                        </div>
+
+
+                                    </a>
+                                </div>
+
+
+
+
+
+
+                            }
+
+
+
+
+
+
+
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <!-- Pagination -->
+
+</main>
+<!--Main layout-->

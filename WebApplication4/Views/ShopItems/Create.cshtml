@@ -1,0 +1,69 @@
+﻿@model WebApplication4.Areas.Identity.Data.ShopItem
+
+@{
+    ViewData["Title"] = "Create";
+
+}
+
+
+<h1>Create</h1>
+
+<h4>ShopItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label">Nazwa Produktu</label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label">Producent</label>
+                <input asp-for="Producer" class="form-control" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <label asp-for="Category" class="form-label">Kategoria</label>
+            <select asp-for="Category" class="form-select">
+                <option value="GPU">Karty Graficzne</option>
+                <option value="CPU">Procesory</option>
+                <option value="Laptops">Laptopy</option>
+                <option value="Computers">Komputery</option>
+            </select>
+            <div class="form-group">
+                <label asp-for="ItemPrice" class="control-label">Cena</label>
+                <input asp-for="ItemPrice" class="form-control" />
+                <span asp-validation-for="ItemPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label">Ilość</label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemImage"  class="control-label">URL Zdjęcia</label>
+                <input asp-for="ItemImage" class="form-control" />
+                <span asp-validation-for="ItemImage" class="text-danger"></span>
+            </div>
+            
+                
+                
+                
+            
+            <div class="form-group">
+                <input type="hidden" asp-for="whenAdded" value="@DateTime.Now" asp-format="{0:yyyy-MM-dd}" />
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
