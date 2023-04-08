@@ -36,12 +36,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public IActionResult OnGet()
         {
-            if (RecoveryCodes == null || RecoveryCodes.Length == 0)
-            {
-                return RedirectToPage("./TwoFactorAuthentication");
-            }
-
-            return Page();
+            return NotFound();
         }
     }
 }

@@ -1,12 +1,16 @@
-﻿@page "/Login"
+﻿@page "/login"
 @model LoginModel
 
 @{
     ViewData["Title"] = "Log in";
 }
+<style>
+    .navbar .nav-link {
+        color: #fff !important;
+    }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+</style>
+@*<div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -48,8 +52,72 @@
             </form>
         </section>
     </div>
-   
+
+</div>*@
+<style>
+    #intro {
+        margin-top: 20%;
+        height: 50%;
+    }
+
+</style>
+<div id="intro" class="bg-image ">
+    <div class=" d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center my-5">
+                <div class="col-xl-5 col-md-8">
+                    <form class="bg-white rounded shadow-5-strong p-5" id="account" method="post">
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Input.Email" type="email" id="form1Example1" class="form-control" autocomplete="off" />
+                            <label asp-for="Input.Email" class="form-label" for="form1Example1">Adres email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Input.Password" type="password" id="form1Example2" class="form-control" />
+                            <label asp-for="Input.Password" class="form-label" for="form1Example2">Hasło</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- 2 column grid layout for inline styling -->
+                        <div class="row mb-4">
+                            <div class="col d-flex justify-content-center">
+                                <!-- Checkbox -->
+                                <div class="form-check">
+                                    @*<input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />*@
+
+                                    <label asp-for="Input.RememberMe" class="form-check-label">
+                                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                                        Zapamiętaj mnie?
+
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col text-center">
+                                <!-- Simple link -->
+                                <p>
+                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Nie masz konta? Zarejestruj się!</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+
+                        <div>
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

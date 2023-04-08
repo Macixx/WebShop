@@ -110,11 +110,7 @@ namespace WebApplication4.Controllers
             return View(await PaginatedList<ShopItem>.CreateAsync(shopItems.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }
-        [Route("/koszyk")]
-        public IActionResult Cart()
-        {
-            return View();
-        }
+        
        
 
         // GET: ShopItems/Details/5

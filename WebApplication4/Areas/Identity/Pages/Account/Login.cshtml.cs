@@ -77,6 +77,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
+
             public string Password { get; set; }
 
             /// <summary>

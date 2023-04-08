@@ -59,14 +59,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            RequirePassword = await _userManager.HasPasswordAsync(user);
-            return Page();
+            return NotFound();
         }
 
         public async Task<IActionResult> OnPostAsync()

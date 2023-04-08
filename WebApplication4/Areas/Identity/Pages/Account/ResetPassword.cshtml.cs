@@ -74,18 +74,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account
 
         public IActionResult OnGet(string code = null)
         {
-            if (code == null)
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
-            else
-            {
-                Input = new InputModel
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
-                };
-                return Page();
-            }
+            return NotFound();
         }
 
         public async Task<IActionResult> OnPostAsync()

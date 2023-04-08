@@ -34,18 +34,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!await _userManager.GetTwoFactorEnabledAsync(user))
-            {
-                throw new InvalidOperationException($"Cannot disable 2FA for user as it's not currently enabled.");
-            }
-
-            return Page();
+            return NotFound();
         }
 
         public async Task<IActionResult> OnPostAsync()
