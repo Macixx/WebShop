@@ -9,9 +9,13 @@
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     var searchString = ViewData["searchString"];
+    var producerFilter = ViewData["producerFilter"];
+    var pageNumber = ViewData["pageNumber"];
     var query = ViewData["Query"].ToString();
     var sortOrder = ViewData["SortOrder"];
+    var cat = ViewData["category"];
     string sortOrderStr = "";
+
     switch (sortOrder)
     {
         case "price_desc":
@@ -34,27 +38,7 @@
 
 
     string szukaj = "/szukaj" + query;
-    while (szukaj.Contains("sortOrder"))
-    {
-        if (szukaj.Contains("sortOrder"))
-        {
-            szukaj = szukaj.Remove(szukaj.LastIndexOf("&sortOrder"));
 
-        }
-
-
-    }
-
-    while (szukaj.Contains("pageNumber"))
-    {
-        if (szukaj.Contains("pageNumber"))
-        {
-            szukaj = szukaj.Remove(szukaj.LastIndexOf("&"));
-
-        }
-
-
-    }
 
 
 
@@ -100,11 +84,13 @@
         if (Model.Any() == true)
         {
             <div class="container px-4 px-lg-5 mt-5">
-                <h3 class="fw-bolder">
-                    Wyniki wyszukiwania dla:
-                    „@searchString”
-
-                </h3>
+                
+                
+                    <h3 class="fw-bolder">
+                        Wyniki wyszukiwania dla:
+                        „@searchString”
+                    </h3>
+                
 
                 <div class="row h-100 mt-4">
 
@@ -124,12 +110,14 @@
                                                 {
                                                     szukaj = szukaj.Remove(szukaj.LastIndexOf("&producerFilter"));
 
-                                                    <div class="form-check">
+
+                                                    <form class="form-check">
+
                                                         <input class="form-check-input" type="checkbox" value="" onchange="window.location.href='@szukaj'" id="flexCheckChecked" checked>
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                             @producer.Producer
                                                         </label>
-                                                    </div>
+                                                    </form>
 
 
 
@@ -137,7 +125,7 @@
 
                                                 else
                                                 {
-
+                                                //szukaj = szukaj.Remove(szukaj.LastIndexOf("&producerFilter"));
                                                     <div class="form-check ">
                                                         <input class="form-check-input" type="checkbox" value="" onchange="window.location.href='@szukaj&producerFilter=@producer.Producer'" id="flexCheckDefault$@producer.Producer">
                                                         <label class="form-check-label" for="flexCheckDefault$@producer.Producer">
@@ -174,11 +162,11 @@
                                     Sortowanie: @sortOrderStr
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="@szukaj">Popularność: Od najwyższej</a></li>
-                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=price_desc">Cena: Od najwyższej</a></li>
-                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=price">Cena: Od najniższej</a></li>
-                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=name">Nazwa: Od a do z</a></li>
-                                    <li><a class="dropdown-item" href="@szukaj&sortOrder=name_desc">Nazwa: Od z do a</a></li>
+                                    <li><a class="dropdown-item" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="" asp-route-producerFilter="@producerFilter">Popularność: Od najwyższej</a></li>
+                                    <li><a class="dropdown-item" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="price_desc" asp-route-producerFilter="@producerFilter">Cena: Od najwyższej</a></li>
+                                    <li><a class="dropdown-item" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="price" asp-route-producerFilter="@producerFilter">Cena: Od najniższej</a></li>
+                                    <li><a class="dropdown-item" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="name" asp-route-producerFilter="@producerFilter">Nazwa: Od a do z</a></li>
+                                    <li><a class="dropdown-item" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="name_desc" asp-route-producerFilter="@producerFilter">Nazwa: Od z do a</a></li>
 
 
                                 </ul>
@@ -195,59 +183,59 @@
 
                                 foreach (var item in Model)
                                 {
-                                    
-                                        string? itemName = item.ItemName;
-                                        if (item.ItemName.Length > 44)
-                                        {
 
-                                            itemName = item.ItemName.Remove(44);
+                                    string? itemName = item.ItemName;
+                                    if (item.ItemName.Length > 44)
+                                    {
 
-
-                                            itemName = itemName + "...";
+                                        itemName = item.ItemName.Remove(44);
 
 
-                                        }
-                                        <div class="col mb-4 p-3" style="width: 230px;">
-                                            <a href="/produkt?id=@item.ID" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
-                                                <div class="hover-overlay h-100">
-                                                    <div class="card h-100 text-start">
-                                                        <div class="bg-image ">
-                                                            <img src="@item.ItemImage"
+                                        itemName = itemName + "...";
+
+
+                                    }
+                                    <div class="col mb-4 p-3" style="width: 230px;">
+                                        <a href="/produkt?id=@item.ID" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                            <div class="hover-overlay h-100">
+                                                <div class="card h-100 text-start">
+                                                    <div class="bg-image ">
+                                                        <img src="@item.ItemImage"
                                                      class="w-100" style="height: 200px;" />
 
 
 
-                                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
-
-
-                                                        </div>
-
-
-                                                        <h6 class="text-black mb-2 fw-bold">@itemName</h6>
-                                                        <div class="card-body p-0">
-                                                            <p class="text-black">Producent: @item.Producer</p>
-                                                        </div>
-
-
-
-
-
-
-                                                        <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
-
+                                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
 
 
                                                     </div>
 
+
+                                                    <h6 class="text-black mb-2 fw-bold">@itemName</h6>
+                                                    <div class="card-body p-0">
+                                                        <p class="text-black">Producent: @item.Producer</p>
+                                                    </div>
+
+
+
+
+
+
+                                                    <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
+
+
+
                                                 </div>
 
-
-                                            </a>
-                                        </div>
+                                            </div>
 
 
-                                    
-                                    
+                                        </a>
+                                    </div>
+
+
+
+
 
 
 
@@ -291,7 +279,7 @@
                             @{
                                 if (Model.HasPreviousPage)
                                 {
-                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex - 1)">Poprzednia</a></li>
+                                    <li class="page-item"><a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">Poprzednia</a></li>
 
 
                                 }
@@ -307,14 +295,14 @@
                             @{
                                 if (Model.PageIndex > 2)
                                 {
-                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=1">1</a></li>
+                                    <li class="page-item"><a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="1" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">1</a></li>
                                 }
                             }
                             @{
                                 if (Model.PageIndex > 1)
                                 {
                                     <li class="page-item">
-                                        <a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex - 1)">
+                                        <a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">
                                             @(
                                         Model.PageIndex - 1
                                                 )
@@ -334,7 +322,7 @@
                                 if (Model.PageIndex < Model.TotalPages)
                                 {
                                     <li class="page-item">
-                                        <a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex + 1)">
+                                        <a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">
                                             @(
                                         Model.PageIndex + 1
                                                 )
@@ -347,7 +335,7 @@
                             @{
                                 if ((Model.PageIndex + 1) != Model.TotalPages && Model.PageIndex != Model.TotalPages && Model.TotalPages != 0)
                                 {
-                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.TotalPages)">@Model.TotalPages</a></li>
+                                    <li class="page-item"><a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@(Model.TotalPages)" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">@Model.TotalPages</a></li>
 
                                 }
 
@@ -359,7 +347,7 @@
                             @{
                                 if (Model.HasNextPage)
                                 {
-                                    <li class="page-item"><a class="page-link" href="@szukaj&pageNumber=@(Model.PageIndex + 1)">Następna</a></li>
+                                    <li class="page-item"><a class="page-link" asp-route-c="@cat" asp-route-searchString="@searchString" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter">Następna</a></li>
 
 
                                 }

@@ -38,7 +38,7 @@ namespace WebApplication4.Controllers
         }
 
         [Route("/szukaj")]
-        public async Task<IActionResult> Produkty(string sortOrder, string searchString, int? pageNumber, string producerFilter)
+        public async Task<IActionResult> Produkty(string c, string sortOrder, string searchString, int? pageNumber, string producerFilter)
         {
 
 
@@ -48,37 +48,87 @@ namespace WebApplication4.Controllers
             ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
 
-            ViewData["CurrentFilter"] = searchString;
+           
             var shopItems = from s in _context.ShopItems
                             select s;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(c))
             {
-
-                if (!String.IsNullOrEmpty(producerFilter))
+                if (!String.IsNullOrEmpty(searchString))
                 {
 
-                    shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) && s.Producer.Contains(producerFilter) || s.Category.Contains(searchString) && s.Producer.Contains(producerFilter));
+                    if (!String.IsNullOrEmpty(producerFilter))
+                    {
+
+                        shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) && s.Producer.Contains(producerFilter) && s.Category.Contains(c) || s.Category.Contains(c) && s.Producer.Contains(producerFilter));
+
+
+                    }
+                    else
+                    {
+                        shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) && s.Category.Contains(c) || s.Category.Contains(c) || s.Producer.Contains(searchString) && s.Category.Contains(c));
+
+
+                    }
+
+
 
 
                 }
                 else
                 {
-                    shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) || s.Category.Contains(searchString) || s.Producer.Contains(searchString));
+                    if (!String.IsNullOrEmpty(producerFilter))
+                    {
 
+                        shopItems = shopItems.Where(s => s.Producer.Contains(producerFilter) && s.Category.Contains(c) || s.Category.Contains(c) && s.Producer.Contains(producerFilter));
+
+
+                    }
+                    else
+                    {
+                        shopItems = shopItems.Where(s => s.Category.Contains(c));
+
+
+                    }
+
+
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(searchString))
+                {
+
+                    if (!String.IsNullOrEmpty(producerFilter))
+                    {
+
+                        shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) && s.Producer.Contains(producerFilter) || s.Category.Contains(searchString) && s.Producer.Contains(producerFilter));
+
+
+                    }
+                    else
+                    {
+                        shopItems = shopItems.Where(s => s.ItemName.Contains(searchString) || s.Category.Contains(searchString) || s.Producer.Contains(searchString));
+
+
+                    }
+
+
+
+
+                }
+                else
+                {
+
+                    Response.Redirect("/");
 
                 }
 
 
-
-
             }
-            else
-            {
 
-                Response.Redirect("/");
 
-            }
+
 
 
 
@@ -104,14 +154,19 @@ namespace WebApplication4.Controllers
             ViewData["searchString"] = searchString;
             ViewData["Query"] = HttpContext.Request.QueryString;
             ViewData["SortOrder"] = sortOrder;
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["producerFilter"] = producerFilter;
+            ViewData["category"] = c;
+
 
 
             int pageSize = 32;
             return View(await PaginatedList<ShopItem>.CreateAsync(shopItems.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }
-        
-       
+
+
+
 
         // GET: ShopItems/Details/5
         [Route("/produkt")]

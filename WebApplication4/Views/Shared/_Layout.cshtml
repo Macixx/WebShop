@@ -27,7 +27,13 @@
     <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true" />
 
 </head>
+@{
+    var searchString = ViewData["searchString"];
+    var producerFilter = ViewData["producerFilter"];
+    var pageNumber = ViewData["pageNumber"];
+    var sortOrder = ViewData["SortOrder"];
 
+}
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light " style="">
@@ -100,10 +106,32 @@
 
                     </ul>
                 </div>
-
+                
             </div>
         </nav>
     </header>
+    <div class="d-flex justify-content-center">
+        <a asp-action="produkty" asp-route-c="cpu" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter" class="btn btn-outline-dark text-black ms-2">
+            <i class="fas fa-shopping-cart fa-xl"></i>
+            Procesory
+        </a>
+        <a asp-route-c="gpu" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter" class="btn btn-outline-dark text-black ms-2">
+            <i class="fas fa-shopping-cart fa-xl"></i>
+            Karty Graficzne
+        </a>
+        <a asp-route-c="laptopy" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter" class="btn btn-outline-dark text-black ms-2">
+            <i class="fas fa-shopping-cart fa-xl"></i>
+            Laptopy
+        </a>
+        <a asp-route-c="komputery" asp-route-searchString="@searchString" asp-route-pageNumber="@pageNumber" asp-route-sortOrder="@sortOrder" asp-route-producerFilter="@producerFilter" class="btn btn-outline-dark text-black ms-2">
+            <i class="fas fa-shopping-cart fa-xl"></i>
+            Komputery
+        </a>
+
+
+
+    </div>
+    
 
     <div class="container">
         <main role="main" class="pb-2">

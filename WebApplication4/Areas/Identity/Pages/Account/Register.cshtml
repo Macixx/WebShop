@@ -16,14 +16,7 @@
                 <div class="col-xl-5 col-md-8">
                     <form class="bg-white rounded shadow-5-strong p-5" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-outline mb-4">
-
-                            <input asp-for="Input.Name"  id="form1Example3" class="form-control" autocomplete="off" />
-                            <label asp-for="Input.Name" class="form-label" for="form1Example3">Imię</label>
-                            <span asp-validation-for="Input.Name" class="text-danger"></span>
-
-                            
-                        </div>
+                       
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <input asp-for="Input.Email" type="email" id="form1Example1" class="form-control" autocomplete="off" />
