@@ -39,7 +39,9 @@
 
 
 <hr class="hr" />
-<h2>Bestsellery</h2>
+<div class="text-center d-flex justify-content-center">
+    <h2>Bestsellery</h2>
+</div>
 <main class="d-flex  mt-5">
 
     <div class="container d-flex ">
@@ -92,7 +94,7 @@
                                                 <div class="card-body p-0">
                                                     <p class="text-black">Producent: @item.Producer</p>
                                                 </div>
-                                                
+
 
 
 
@@ -101,7 +103,7 @@
                                                 <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
 
 
-                                                
+
                                             </div>
 
                                         </div>
@@ -135,85 +137,72 @@
 
             </section>
             <hr class="hr" />
-            <h2>Najwięcej na stanie</h2>
+            <div class="text-center d-flex justify-content-center">
+                <h2>Kategorie</h2>
+            </div>
             <section class="col">
                 <div class="text-center">
                     <div class="row">
-
-
-                        @{
-
-
-                            foreach (var item in Model.Take(5).OrderByDescending(item => item.Count))
-                            {
-
-                                string? itemName = item.ItemName;
-                                if (item.ItemName.Length > 44)
-                                {
-
-                                    itemName = item.ItemName.Remove(44);
-
-                                    
-                                    itemName = itemName + "...";
-
-
-                                }
-                                <div class="col mb-4 p-3" style="width: 230px;">
-                                    <a href="/produkt?id=@item.ID" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
-                                        <div class="hover-overlay h-100">
-                                            <div class="card h-100 text-start">
-                                                <div class="bg-image ">
-                                                    <img src="@item.ItemImage"
-                                                     class="w-100" style="height: 200px;" />
-
-
-
-                                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
-
-
-                                                </div>
-
-
-                                                <h6 class="text-black mb-2 fw-bold">@itemName</h6>
-                                                <div class="card-body p-0">
-                                                    <p class="text-black">Producent: @item.Producer</p>
-                                                </div>
-
-
-
-
-
-
-                                                <h6 class="mb-3 price ">@item.ItemPrice zł</h6>
-
-
-                                                
-                                            </div>
-
+                        <div class="col mb-4 p-3" style="width: 230px;">
+                            <a href="/szukaj?c=cpu" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                <div class="hover-overlay h-100">
+                                    <div class="card h-100 text-start">
+                                        <div class="bg-image ">
+                                            <img src="https://cdn.x-kom.pl/i/img/category/large,,cat_2017-03-30_13_1_18_144.png"
+                                                 class="w-100" style="height: 200px;" />
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
                                         </div>
+                                        <h6 class="mb-3 price text-center ">Procesory</h6>
+                                    </div>
 
-
-                                    </a>
                                 </div>
+                            </a>
+                        </div>
+                        <div class="col mb-4 p-3" style="width: 230px;">
+                            <a href="/szukaj?c=gpu" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                <div class="hover-overlay h-100">
+                                    <div class="card h-100 text-start">
+                                        <div class="bg-image ">
+                                            <img src="https://cdn.x-kom.pl/i/img/category/large,,cat_2017-09-01_8_46_35_633.png"
+                                                 class="w-100" style="height: 200px;" />
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+                                        </div>
+                                        <h6 class="mb-3 price text-center ">Karty graficzne</h6>
+                                    </div>
 
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col mb-4 p-3" style="width: 230px;">
+                            <a href="/szukaj?c=procesory" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                <div class="hover-overlay h-100">
+                                    <div class="card h-100 text-start">
+                                        <div class="bg-image ">
+                                            <img src="https://cdn.x-kom.pl/i/img/category/large,,cat_2022-04-05_13_46_0_161.png"
+                                                 class="w-100" style="height: 200px;" />
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+                                        </div>
+                                        <h6 class="mb-3 price text-center  ">Laptopy</h6>
+                                    </div>
 
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col mb-4 p-3" style="width: 230px;">
+                            <a href="/szukaj?c=procesory" class="hover-zoom ripple ripple-surface ripple-surface-light h-100 mb-3" data-mdb-ripple-color="light">
+                                <div class="hover-overlay h-100">
+                                    <div class="card h-100 text-start">
+                                        <div class="bg-image ">
+                                            <img src="https://cdn.x-kom.pl/i/setup/images/prod/big/product-medium,,2022/3/pr_2022_3_28_7_23_53_200_03.jpg"
+                                                 class="w-100" style="height: 200px;" />
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.3);"></div>
+                                        </div>
+                                        <h6 class="mb-3 price text-center">Komputery</h6>
+                                    </div>
 
-
-
-
-                            }
-
-
-
-
-
-
-
-                        }
-
-
-
-
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

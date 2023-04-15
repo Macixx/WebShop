@@ -13,17 +13,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
                 <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+                <label  class="form-label">Email</label>
             </div>
             <div class="form-floating">
                 <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <label asp-for="Input.PhoneNumber" class="form-label">Numer Telefonu</label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Zapisz</button>
         </form>
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link ">Logout</button>
+            <button id="logout" type="submit" class=" btn btn-outline-danger w-100 mt-5 ">Wyloguj</button>
         </form>
     </div>
 </div>

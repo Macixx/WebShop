@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -190,7 +191,8 @@ namespace WebApplication4.Controllers
         // GET: ShopItems/Create
         public IActionResult Create()
         {
-            return View();
+            //return View();
+            return Redirect("/");
         }
 
         // POST: ShopItems/Create
@@ -206,7 +208,8 @@ namespace WebApplication4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(shopItem);
+            // return View(shopItem);
+            return Redirect("/");
         }
 
         // GET: ShopItems/Edit/5
@@ -222,7 +225,8 @@ namespace WebApplication4.Controllers
             {
                 return NotFound();
             }
-            return View(shopItem);
+            //return View(shopItem);
+            return Redirect("/");
         }
 
         // POST: ShopItems/Edit/5
@@ -257,7 +261,8 @@ namespace WebApplication4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(shopItem);
+            //return View(shopItem);
+            return Redirect("/");
         }
 
         // GET: ShopItems/Delete/5
@@ -275,7 +280,8 @@ namespace WebApplication4.Controllers
                 return NotFound();
             }
 
-            return View(shopItem);
+            //return View(shopItem);
+            return Redirect("/");
         }
 
         // POST: ShopItems/Delete/5
