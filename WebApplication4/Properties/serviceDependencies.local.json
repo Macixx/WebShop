@@ -3,10 +3,21 @@
     "secrets1": {
       "type": "secrets.user"
     },
-    "mssql2": {
+    "mssql1": {
       "secretStore": "LocalSecretsFile",
       "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:AppDb"
+      "connectionId": "ConnectionStrings:AppDb",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "ConnectionStriAppDb"
+    },
+    "mssql3": {
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:Con"
     }
   }
 }

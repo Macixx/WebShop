@@ -5,7 +5,7 @@ using WebApplication4.Areas.Identity.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("AppDb") ?? throw new InvalidOperationException("Connection string 'AppDb' not found.");
+var connectionString = builder.Configuration.GetConnectionString("Con") ?? throw new InvalidOperationException("Connection string 'AppDb' not found.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));

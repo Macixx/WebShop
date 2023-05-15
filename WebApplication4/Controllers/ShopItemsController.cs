@@ -191,8 +191,8 @@ namespace WebApplication4.Controllers
         // GET: ShopItems/Create
         public IActionResult Create()
         {
-            //return View();
-            return Redirect("/");
+            return View();
+            //return Redirect("/");
         }
 
         // POST: ShopItems/Create
@@ -208,8 +208,8 @@ namespace WebApplication4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // return View(shopItem);
-            return Redirect("/");
+             return View(shopItem);
+            //return Redirect("/");
         }
 
         // GET: ShopItems/Edit/5
