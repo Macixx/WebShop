@@ -10,11 +10,7 @@
     },
     "mssql2": {
       "type": "mssql",
-      "connectionId": "ConnectionStriAppDb"
-    },
-    "mssql3": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:Con"
+      "connectionId": "ConnectionStrings:Connection"
     }
   }
 }
