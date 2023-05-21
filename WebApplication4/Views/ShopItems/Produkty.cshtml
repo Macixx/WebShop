@@ -15,6 +15,24 @@
     var sortOrder = ViewData["SortOrder"];
     var cat = ViewData["category"];
     string sortOrderStr = "";
+    string catNormalized = "";
+    switch (cat)
+    {
+        case "cpu":
+            catNormalized = "Procesory";
+            break;
+        case "gpu":
+            catNormalized = "Karty Graficzne";
+            break;
+        case "laptopy":
+            catNormalized = "Laptopy";
+            break;
+        case "komputery":
+            catNormalized = "Komputery";
+            break;
+
+
+    }
 
     switch (sortOrder)
     {
@@ -84,12 +102,21 @@
         if (Model.Any() == true)
         {
             <div class="container px-4 px-lg-5 mt-5">
-                
-                
+            @{
+                if (szukaj.Contains($"SearchString="))
+                {
                     <h3 class="fw-bolder">
                         Wyniki wyszukiwania dla:
                         „@searchString”
                     </h3>
+                }
+                else{
+                <h3 class="fw-bolder">
+                    Kategoria: @catNormalized
+                </h3>
+
+                    }
+                }
                 
 
                 <div class="row h-100 mt-4">
